@@ -23,7 +23,26 @@ var actions = {
 			      	}
 			    }
 			  });
-
+ 	},
+ 	login: function(username, password){
+ 			$.ajax({
+			  	//The URL to process the request
+			    'url' : '/login',
+			  	//The type of request, also known as the "method" in HTML forms
+			  	//Can be 'GET' or 'POST'
+			    'type' : 'GET',
+			 	'data': {"username": username, "password": password},
+			  	//The response from the server
+			    'success' : function(data) {
+                    console.log(data);
+			    	//You can use any jQuery/JavaScript here!!!
+			      	if (data === "success") {
+				   		console.log('login successful');
+			      	} else {
+			        	console.log("login failed");
+			      	}
+			    }
+			});
  	}
 };
 

@@ -29,12 +29,26 @@ app.get('/lib/jquery-1.3.2.min.js',function(req,res){
 
 
 app.get('/abc',function(req,res){
-  console.log("requset recieved");
+  // console.log("requset recieved");
 
   connection.query('select *  from student;',  (error, results, fields) => {
     if (error) throw error;
-    console.log('The solution is: ', results);
+    
     res.send(results);
+  });
+});
+
+app.get('/login',function(req,res){
+  console.log("requset recieved");
+  console.log(req.query);
+  var sql = 'select * from users where username =' + req.query.username + 'and password ='+  req.query.password;
+  connection.query('select * from users where username = ? and password = ?',  [req.query.username,req.query.password ], (error, results, fields) => {
+    if (error) throw error;
+    if(results.length > 0){
+      res.send("success");
+    } else {
+      res.send("result is empty");
+    }
   });
 });
 

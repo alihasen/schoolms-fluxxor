@@ -13,11 +13,27 @@ var Application = React.createClass({
                             data: flux.store("MainStore").data
                          }
     },
-componentDidMount: function(){
-	this.getFlux().actions.getInitData();
-},
-  render: function(){
-    	return	<h1>hhhhhhhhhhiiiiiiiii</h1>;
+    getInitialState: function(){
+      return {username: "", password: ""}
+    },
+    componentDidMount: function(){
+	   this.getFlux().actions.getInitData();
+    },
+    handleSubmitClick: function(e){
+      this.getFlux().actions.login(this.state.username, this.state.password);
+    },
+    handleUserChange: function(e){
+      this.setState({username: e.target.value});
+    },
+    handlePasswordChange: function(e){
+      this.setState({password: e.target.value});
+    },
+    render: function(){
+    	return	<div>
+                Username:  <input type = "text" onChange = {this.handleUserChange} value = {this.state.username} />
+                Password: <input type= "password" onChange = {this.handlePasswordChange} value = {this.state.password} />
+                <button type = "button" onClick = {this.handleSubmitClick}>Submit</button> 
+              </div>
 
   }
 });
