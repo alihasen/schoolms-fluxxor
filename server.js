@@ -1,6 +1,8 @@
 var express = require("express");
 var app     = express();
 var path    = require("path");
+var bodyParser = require('body-parser')
+app.use(bodyParser.json());
 
 
 var mysql      = require('mysql');
@@ -27,7 +29,6 @@ app.get('/lib/jquery-1.3.2.min.js',function(req,res){
   //__dirname : It will resolve to your project folder.
 });
 
-
 app.get('/abc',function(req,res){
   // console.log("requset recieved");
 
@@ -52,7 +53,21 @@ app.get('/login',function(req,res){
   });
 });
 
+app.post('/insertdata', function(req, res) {
+  // console.log(req.hasOwnProperty("body"));
+  console.log(JSON.stringify(req.body));
+  for(var index in req.body){
+    connection.query('insert into student set ?',  req.body[index], (error, results, fields) => {
+      if (error) throw error;
+    });
+  }
+  if(req.body.length > 0){
+    res.send("success");
+  } else {
+    res.send("result is empty");
+    }
+});
+
 app.listen(3000);
 
 console.log("Running at Port 3000");
-

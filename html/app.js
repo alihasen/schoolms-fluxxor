@@ -3,7 +3,7 @@ var Fluxxor = require('fluxxor');
 import { FluxMixin, StoreWatchMixin, flux } from './flux'
 
 /*importing react and react-router*/
-import React from 'react'
+import React from 'react';
 import { render } from 'react-dom'
 import { Router,  useRouterHistory  } from 'react-router'
 import { createHashHistory } from 'history';
