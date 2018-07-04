@@ -21,8 +21,8 @@ var Application = React.createClass({
 	   this.getFlux().actions.getInitData();
     },
     handleSubmitClick: function(e){
-      // this.getFlux().actions.login(this.state.username, this.state.password)
-      this.getFlux().actions.submitTable(this.state.table);
+      this.getFlux().actions.login(this.state.username, this.state.password)
+      // this.getFlux().actions.submitTable(this.state.table);
     },
     handleUserChange: function(e){
       this.setState({username: e.target.value});

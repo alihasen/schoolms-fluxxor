@@ -30,8 +30,9 @@ var actions = {
 			    'url' : '/login',
 			  	//The type of request, also known as the "method" in HTML forms
 			  	//Can be 'GET' or 'POST'
-			    'type' : 'GET',
-			 	'data': {"username": username, "password": password},
+			    'type' : 'POST',
+			    'contentType': 'application/json',
+			 	'data': JSON.stringify({"username": username, "password": password}),
 			  	//The response from the server
 			    'success' : function(data) {
                     console.log(data);

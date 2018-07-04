@@ -39,11 +39,11 @@ app.get('/abc',function(req,res){
   });
 });
 
-app.get('/login',function(req,res){
+app.post('/login',function(req,res){
+  console.log(JSON.stringify(req.body));
   console.log("requset recieved");
-  console.log(req.query);
-  var sql = 'select * from users where username =' + req.query.username + 'and password ='+  req.query.password;
-  connection.query('select * from users where username = ? and password = ?',  [req.query.username,req.query.password ], (error, results, fields) => {
+  var body = req.body
+  connection.query('select * from users where username = ? and password = ?',  [body.username, body.password ], (error, results, fields) => {
     if (error) throw error;
     if(results.length > 0){
       res.send("success");
