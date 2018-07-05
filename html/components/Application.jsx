@@ -1,8 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
-
-var Fluxxor = require('fluxxor');
-import { FluxMixin, StoreWatchMixin, flux } from './../flux'
+import { FluxMixin, StoreWatchMixin } from './../flux'
 
 var XLSX = require("xlsx");
 

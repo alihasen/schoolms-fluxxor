@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, IndexRoute, Router } from 'react-router'
+import { Route, Router } from 'react-router'
 import {Application} from './Application.jsx'
 import {DetailsPage} from './DetailsPage/index.jsx';
 

@@ -1,4 +1,3 @@
-var constants = require("../constants");
 
 
 /*When the page loads, getinitData function will called*/
