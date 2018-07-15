@@ -1,33 +1,39 @@
 import React from 'react';
 import { FluxMixin, StoreWatchMixin } from './../flux'
+var reactMixin = require('react-mixin');
 
-var XLSX = require("xlsx");
+import XLSX, { read, utils } from "xlsx";
 
-var Application = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("MainStore")],
-    getStateFromFlux: function() {
+class Application extends React.Component{
+    constructor(props) {
+      super(props);
+      
+      this.state = {username: "", password: "", table: []};
+
+      this.handleSubmitClick = this.handleSubmitClick.bind(this);
+      this.handleUserChange = this.handleUserChange.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+    getStateFromFlux() {
             var flux = this.getFlux();
                   return {
                             data: flux.store("MainStore").data
                          }
-    },
-    getInitialState: function(){
-      return {username: "", password: "", table: []}
-    },
-    componentDidMount: function(){
+    }
+    componentDidMount(){
 	   this.getFlux().actions.getInitData();
-    },
-    handleSubmitClick: function(e){
+    }
+    handleSubmitClick(e){
       this.getFlux().actions.login(this.state.username, this.state.password)
       // this.getFlux().actions.submitTable(this.state.table);
-    },
-    handleUserChange: function(e){
+    }
+    handleUserChange(e){
       this.setState({username: e.target.value});
-    },
-    handlePasswordChange: function(e){
+    }
+    handlePasswordChange(e){
       this.setState({password: e.target.value});
-    },
-    readFile: function(e){
+    }
+    readFile(e){
       var self = this;
       function fixdata(data) {
         var o = "", l = 0, w = 10240;
@@ -50,25 +56,25 @@ var Application = React.createClass({
           var workbook;
           if(rABS) {
             /* if binary string, read with type 'binary' */
-            workbook = XLSX.read(data, {type: 'binary'});
+            workbook = read(data, {type: 'binary'});
           } else {
             /* if array buffer, convert to base64 */
             var arr = fixdata(data);
-            workbook = XLSX.read(btoa(arr), {type: 'base64'});
+            workbook = read(btoa(arr), {type: 'base64'});
           }
 
           var first_sheet_name = workbook.SheetNames[0];
           var workSheet = workbook.Sheets[first_sheet_name];
           // console.log(workbook);
           /* DO SOMETHING WITH workbook HERE */
-          var table = XLSX.utils.sheet_to_json(workSheet);
+          var table = utils.sheet_to_json(workSheet);
           console.log(table);
           self.setState({"table": table})
         };
         reader.readAsBinaryString(f);
       }
-    },
-    render: function(){
+    }
+    render(){
     	return	<div>
                 Username:  <input type = "text" onChange = {this.handleUserChange} value = {this.state.username} />
                 Password: <input type= "password" onChange = {this.handlePasswordChange} value = {this.state.password} />
@@ -77,6 +83,24 @@ var Application = React.createClass({
               </div>
 
   }
-});
+};
+
+function autobind(methodNames) {
+  return {
+    componentWillMount: function() {
+      methodNames.forEach((name) => {
+        this[name] = this[name].bind(this)
+      })
+
+      if(this._componentWillMount)
+        this._componentWillMount()
+    }
+  }
+}
+
+
+reactMixin.onClass(Application, FluxMixin)
+reactMixin.onClass(Application, StoreWatchMixin('MainStore'))
+reactMixin.onClass(Application, autobind(Object.keys(StoreWatchMixin)))
 
 export {Application}
