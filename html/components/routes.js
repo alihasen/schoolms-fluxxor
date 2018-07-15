@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Router } from 'react-router'
-import {Application} from './Application.jsx'
+import {Application} from './Application'
 import {DetailsPage} from './DetailsPage/index.jsx';
 
 module.exports = (
