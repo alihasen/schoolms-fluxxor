@@ -1,7 +1,7 @@
 var Fluxxor = require('fluxxor');
 var React = require('react');
 
-var actions  = require('./actions/actions');
+var actions = require('./actions/actions');
 var MainStore = require('./stores/MainStore');
 
 var stores = {
@@ -13,4 +13,4 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
-module.exports = {flux , FluxMixin,  StoreWatchMixin } ;
+module.exports = { flux, FluxMixin, StoreWatchMixin };
