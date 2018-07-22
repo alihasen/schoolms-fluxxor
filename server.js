@@ -7,6 +7,10 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
 
+const PORT = 3000;
+const IP = "localhost";
+
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -71,9 +75,7 @@ app.post('/insertdata', function (req, res) {
   }
 });
 
-const PORT = 3000;
-const IP = "0.0.0.0";
 
 app.listen(PORT, IP);
 
-console.log("Running at Port " + PORT + " and IP " + IP);
+console.log("Running at http://" + IP + ":" + PORT);

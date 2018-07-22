@@ -38,6 +38,7 @@ var actions = {
 				//You can use any jQuery/JavaScript here!!!
 				if (data === "success") {
 					console.log('login successful');
+					window.location.hash = "welcome"
 				} else {
 					console.log("login failed");
 				}

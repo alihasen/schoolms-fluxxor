@@ -1,6 +1,4 @@
-/*importing fluxxor*/
-var Fluxxor = require('fluxxor');
-import { FluxMixin, StoreWatchMixin, flux } from './flux'
+import { flux } from './flux'
 
 /*importing react and react-router*/
 import React from 'react';
